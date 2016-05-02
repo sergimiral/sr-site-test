@@ -1,11 +1,17 @@
 /*
-The main SCSS file for everything, yep
+Import allthethingscss! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
 */
+@import "00-reset.scss";
+@import "01-syntax-highlighting.scss";
+@import "02-mixins.scss";
+@import "03-helpers.scss";
 
-@import "main";
-@import "helpers";
-@import "base";
-@import "layout";
-@import "syntax-highlighting";
 
-@import "shame";
+@import "04-variables";
+@import "05-site";
+@import "06-home";
+@import "07-post";
+@import "08-help";
+
+
+@import "99-shame";

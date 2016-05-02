@@ -1,0 +1,101 @@
+/**
+ * Posts
+ */
+
+
+ /**
+  * Page content
+  */
+ .page-content {
+   // margin: 10em auto;
+   // padding: $spacing-unit 0;
+   @include media-query($on-tablet) {
+     margin-top: 4em;
+     margin-right: 2em;
+     margin-left: 2em;
+   }
+ }
+ .page-heading {
+   font-size: 20px;
+ }
+ .post-list {
+   margin-left: 0;
+   list-style: none;
+   > li {
+     margin-bottom: $spacing-unit;
+   }
+ }
+ .post-meta {
+   color: $grey-color;
+   font-size: $small-font-size;
+ }
+ .post-link {
+   display: block;
+   font-size: 24px;
+ }
+
+ 
+.post-header {
+  font-family: $font-sans;
+  margin-bottom: $spacing-unit;
+}
+.post-title {
+  letter-spacing: -1px;
+  font-size: 2em;
+  line-height: 1;
+
+  @include media-query($on-laptop) {
+    font-size: 2em;
+  }
+}
+.post-content {
+  font-family: $font-serif;
+  margin-bottom: $spacing-unit;
+  h1{
+    &::before{
+        margin-left: 0em;
+        opacity: 0;
+    }
+  }
+  h1:hover{
+    &::before{
+        content: "\00b6";
+        font-family: monospace;
+        position: absolute;
+        opacity: 0.1;
+        margin-left: -1em;
+    }
+  }
+
+
+  h2 {
+    font-size: 32px;
+
+    @include media-query($on-laptop) {
+      font-size: 28px;
+    }
+  }
+  h3 {
+    font-size: 26px;
+
+    @include media-query($on-laptop) {
+      font-size: 22px;
+    }
+  }
+  h4 {
+    font-size: 20px;
+
+    @include media-query($on-laptop) {
+      font-size: 18px;
+    }
+  }
+}
+
+.post-content, .post-header {
+    max-width: 700px;
+    margin: 0 auto;
+}
+.post-header{
+  margin-top: 2em;
+  h1{font-weight: 700;}
+}

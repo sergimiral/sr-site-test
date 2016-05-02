@@ -1,0 +1,141 @@
+//
+// FAQ PAGE
+//
+
+header.faq-header{
+  height: auto;
+}
+/* Styles for page */
+.faq-container{
+  width: 90%;
+  margin:3em auto;
+  max-width: 700px;
+  @include bp(md) {
+    width: 80%;
+    margin: 0 auto;
+  }
+  @include bp(lg) {
+    width: 70%;
+  }
+      span{ letter-spacing:0px;}
+      p{
+        font-weight:300;
+      line-height:1.5;
+      font-size:1em;
+      max-width: 550px;
+    }
+    code{
+      font-family: monospace, monospace;
+font-size: 0.8em;
+background: rgba(255,255,0,0.1);
+padding: 0.5em 0.9em 0.3em 0.9em;
+border: 1px solid rgba(0,0,0,0.1);
+border-radius: 5px;
+line-height: 2em;
+    }
+      /* Styles for Accordion */
+      .toggle {
+       &:last-child {
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+      .toggle-title {
+      position: relative;
+      display: block;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      background: transparent;
+      transition: background 0.6s ease;
+      &:hover{
+        background: rgba(255,255,255,0.5);
+        transition: background 0.6s ease;
+      }
+        h3 {
+        font-size: 20px;
+        margin: 0px;
+        line-height: 1;
+        cursor: pointer;
+        // font-weight:500;
+        // opacity: 0.8;
+        }
+
+      &.active{
+        background: rgba(255,255,255,0.5);
+        animation:none !important;
+      }
+      &:hover .title-name {
+          opacity: 1;
+          transition: opacity 0.3s ease;
+      }
+      &.active .title-name {
+        opacity: 1;
+      }
+      }
+
+      .toggle-inner {
+      padding: 7px 5px 30px 5px;
+      display: none;
+      margin: -7px 0px 0px;
+      background: rgba(255,255,255,0.5);
+      @include bp(md) {
+        padding: 7px 25px 30px 15px;
+      }
+      @include bp(lg) {
+        padding: 7px 25px 30px 30px;
+      }
+      div {
+      max-width: 100%;
+      }
+      h4{
+        text-transform: uppercase;
+        font-size: 0.8em;
+        font-weight: 800;
+        letter-spacing: 0.025em;
+        opacity: 0.9;
+      }
+      }
+      .toggle-title {
+      .title-name {
+      display: block;
+      padding: 30px 5px 30px;
+      max-width: 90%;
+      line-height: 1.4;
+      font-weight: 500;
+      font-size: 1em;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+      @include bp(md) {
+        padding: 30px 15px 30px;
+      }
+      @include bp(lg) {
+        padding: 30px 30px 30px;
+      }
+      }
+      a i {
+      font-size: 22px;
+      margin-right: 5px;
+      }
+      i {
+      position: absolute;
+      background: url('../img/accordion-icons.png') 0px -24px no-repeat;
+      width: 24px;
+      height: 24px;
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      margin: auto;
+      right: 10px;
+      top: 0;
+      bottom: 0;
+      }
+      &.active i {
+      background: url('../img/accordion-icons.png') 0px 0px no-repeat;
+      }
+      }
+      }
+
+}
+.faq-video {
+  width: 100%    !important;
+  height: auto   !important;
+}

@@ -1,0 +1,63 @@
+*{
+  text-rendering:optimizeLegibility;
+  // -webkit-font-smoothing: antialiased; // doesn't play nice with Lato
+}
+.fixed{
+  position:fixed !important;
+}
+
+// for lazy loading images
+.lazy-hidden {
+    opacity: 0;
+}
+.lazy-loaded {
+    transition: opacity 0.2s ease-in;
+    opacity: 1;
+}
+
+// -------------------------------------------------------------
+// # Overrides for perfect-scrollbar.js styles
+// -------------------------------------------------------------
+.ps-container > .ps-scrollbar-x-rail > * {
+  display:none;
+}
+.ps-container {
+  overflow: hidden !important;
+
+  -ms-touch-action: none;
+  touch-action: none;
+  -ms-overflow-style: none;
+}
+@supports (-ms-overflow-style: none) {
+  .ps-container {
+    overflow: auto !important;
+  }
+}
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
+  .ps-container {
+    overflow: auto !important;
+  }
+}
+.ps-container.ps-active-x > .ps-scrollbar-x-rail,
+.ps-container.ps-active-y > .ps-scrollbar-y-rail {
+  display: block;
+  background-color: transparent;
+}
+.ps-container.ps-in-scrolling {
+  pointer-events: none;
+
+.ps-container > .ps-scrollbar-x-rail {
+  position: absolute;
+  display: none;
+  opacity: 0;
+}
+.ps-container > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+  position: absolute;
+  opacity: 0;
+}
+
+.ps-container:hover.ps-in-scrolling {
+  pointer-events: none;
+}
+}

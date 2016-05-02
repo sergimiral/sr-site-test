@@ -1,8 +1,8 @@
 # Title, decription, tagline and URL for your site
 # Can be used in your theme by calling 'site.title' and so on
-name: trendiest.github.io
-description: Work in progress
-url: trendiest.github.io
+name: Runner
+description: Runner – Speed up your Sketch workflow!
+url: http://sergimiral.github.io
 
 # Used so Jekyll outputs the site correctly so Gulp can do what it wants
 source: src
@@ -15,7 +15,7 @@ exclude: ['assets']
 author:
   name: Sergi Miral
   email: sergimiral@gmail.com
-  uri: sergimiral.com
+  uri: http://sergimiral.com
   bio: Designer &amp; Coder from Barcelona
   twitter: sergimiral
 

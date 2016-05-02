@@ -1,8 +1,8 @@
 ---
 layout: post
 date: 2015-02-03
-title:  Example jekyll post!
-categories: example jekill test category
+title:  Release notes v0.5
+categories: release
 ---
 
 You'll find this post in your `_posts` directory - edit this post and re-build

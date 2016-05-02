@@ -10,7 +10,7 @@ import del from 'del';
 // Used to run shell commands
 import shell from 'shelljs';
 // BrowserSync is used to live-reload your website
-import browserSync from 'browser-sync';
+const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 // AutoPrefixer
 import autoprefixer from 'autoprefixer';
@@ -74,7 +74,7 @@ gulp.task('styles', () =>
       showFiles: true
     }))
     .pipe($.if(argv.prod, $.rename({suffix: '.min'})))
-    .pipe($.if(argv.prod, $.if('*.css', $.cssnano())))
+    .pipe($.if(argv.prod, $.if('*.css', $.cssnano({autoprefixer: false}))))
     .pipe($.if(argv.prod, $.size({
       title: 'minified styles',
       showFiles: true
@@ -89,7 +89,7 @@ gulp.task('styles', () =>
       showFiles: true
     })))
     .pipe(gulp.dest('.tmp/assets/stylesheets'))
-    .pipe($.if(!argv.prod, browserSync.stream()))
+    .pipe($.if(!argv.prod, browserSync.stream({match: '**/*.css'})))
 );
 
 // 'gulp scripts' -- creates a index.js file from your JavaScript files and
@@ -126,7 +126,7 @@ gulp.task('scripts', () =>
       showFiles: true
     })))
     .pipe(gulp.dest('.tmp/assets/javascript'))
-    .pipe($.if(!argv.prod, browserSync.stream()))
+    .pipe($.if(!argv.prod, browserSync.stream({match: '**/*.js'})))
 );
 
 // 'gulp inject:head' -- injects our style.css file into the head of our HTML
@@ -163,6 +163,15 @@ gulp.task('fonts', () =>
     .pipe($.size({title: 'fonts'}))
 );
 
+
+// 'gulp utils' -- copies your fonts to the temporary assets folder
+gulp.task('utils', () =>
+  gulp.src('src/assets/utilities/**/*')
+    .pipe(gulp.dest('.tmp/utilities'))
+    .pipe($.size({title: 'utils'}))
+);
+
+
 // 'gulp html' -- does nothing
 // 'gulp html --prod' -- minifies and gzips our HTML files
 gulp.task('html', () =>
@@ -185,16 +194,9 @@ gulp.task('html', () =>
 );
 
 // 'gulp deploy' -- pushes your dist folder to Github
-// gulp.task('deploy', () => {
-//   return gulp.src('dist/**/*')
-//     .pipe($.ghPages());
-// });
-
 gulp.task('deploy', () => {
   return gulp.src('dist/**/*')
-    .pipe($.ghPages({
-      branch: "master"
-    }));
+    .pipe($.ghPages());
 });
 
 // 'gulp lint' -- check your JS for formatting errors using XO Space
@@ -212,12 +214,10 @@ gulp.task('lint', () =>
 // 'gulp serve' -- open up your website in your browser and watch for changes
 // in all your files and update them when needed
 gulp.task('serve', () => {
-  browserSync({
+  browserSync.init({
     // tunnel: true,
     // open: false,
-    server: {
-      baseDir: ['.tmp', 'dist']
-    }
+    server: ['.tmp', 'dist']
   });
 
   // Watch various files for changes and do the needful
@@ -236,6 +236,7 @@ gulp.task('assets', gulp.series(
   gulp.parallel('styles', 'scripts', 'fonts', 'images')
 ));
 
+
 // 'gulp assets:copy' -- copies the assets into the dist folder, needs to be
 // done this way because Jekyll overwrites the whole folder otherwise
 gulp.task('assets:copy', () =>
@@ -243,14 +244,22 @@ gulp.task('assets:copy', () =>
     .pipe(gulp.dest('dist/assets'))
 );
 
+// 'gulp utils:copy' -- copies the utols into the dist folder, needs to be
+// done this way because Jekyll overwrites the whole folder otherwise
+gulp.task('utils:copy', () =>
+  gulp.src('.tmp/utilities/**/*')
+    .pipe(gulp.dest('dist/'))
+);
+
+
 // 'gulp' -- cleans your assets and gzipped files, creates your assets and
 // injects them into the templates, then builds your site, copied the assets
 // into their directory and serves the site
 // 'gulp --prod' -- same as above but with production settings
 gulp.task('default', gulp.series(
   gulp.series('clean:assets', 'clean:gzip'),
-  gulp.series('assets', 'inject:head', 'inject:footer'),
-  gulp.series('jekyll', 'assets:copy', 'html'),
+  gulp.series('assets', 'utils', 'inject:head', 'inject:footer'),
+  gulp.series('jekyll', 'assets:copy', 'utils:copy', 'html'),
   gulp.series('serve')
 ));
 
@@ -259,7 +268,7 @@ gulp.task('default', gulp.series(
 gulp.task('build', gulp.series(
   gulp.series('clean:assets', 'clean:gzip'),
   gulp.series('assets', 'inject:head', 'inject:footer'),
-  gulp.series('jekyll', 'assets:copy', 'html')
+  gulp.series('jekyll', 'assets:copy', 'utils:copy', 'html')
 ));
 
 // 'gulp clean' -- erases your assets and gzipped files
