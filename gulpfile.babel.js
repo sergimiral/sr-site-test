@@ -133,7 +133,7 @@ gulp.task('scripts', () =>
 gulp.task('inject:head', () =>
   gulp.src('src/_includes/head.html')
     .pipe($.inject(gulp.src('.tmp/assets/stylesheets/*.css',
-                            {read: false}), {ignorePath: '.tmp'}))
+                            {read: false}), {ignorePath: '.tmp/', addRootSlash: false}))
     .pipe(gulp.dest('src/_includes'))
 );
 
@@ -141,7 +141,7 @@ gulp.task('inject:head', () =>
 gulp.task('inject:footer', () =>
   gulp.src('src/_layouts/default.html')
     .pipe($.inject(gulp.src('.tmp/assets/javascript/*.js',
-                            {read: false}), {ignorePath: '.tmp'}))
+                            {read: false}), {ignorePath: '.tmp/', addRootSlash: false}))
     .pipe(gulp.dest('src/_layouts'))
 );
 
@@ -194,10 +194,21 @@ gulp.task('html', () =>
 );
 
 // 'gulp deploy' -- pushes your dist folder to Github
+// gulp.task('deploy', () => {
+//   return gulp.src('dist/**/*')
+//     .pipe($.ghPages());
+// });
+
+// or define specific parameters, but should work without…
+
 gulp.task('deploy', () => {
   return gulp.src('dist/**/*')
-    .pipe($.ghPages());
+    .pipe($.ghPages({
+          branch: "gh-pages",
+          remoteUrl: "https://github.com/sergimiral/sr-site-test.git"
+          }));
 });
+
 
 // 'gulp lint' -- check your JS for formatting errors using XO Space
 gulp.task('lint', () =>
@@ -267,7 +278,7 @@ gulp.task('default', gulp.series(
 // 'gulp build --prod' -- same as above but with production settings
 gulp.task('build', gulp.series(
   gulp.series('clean:assets', 'clean:gzip'),
-  gulp.series('assets', 'inject:head', 'inject:footer'),
+  gulp.series('assets', 'utils', 'inject:head', 'inject:footer'),
   gulp.series('jekyll', 'assets:copy', 'utils:copy', 'html')
 ));
 

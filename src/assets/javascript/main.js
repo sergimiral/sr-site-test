@@ -24,7 +24,7 @@ if( jQuery(".toggle .toggle-title").hasClass('active') ){
   // -------------------------------------------------------------
 
   $(document).ready(function() {
-    var jsonURL = location.host + '/versioncheck.json';
+    var jsonURL = 'versioncheck.json';
     $.getJSON(jsonURL, function(json) {
       // Getting the contents and displaying them in releasenotes.html
       $(".domain").html(json.domain);

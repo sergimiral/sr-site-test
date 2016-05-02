@@ -2,7 +2,8 @@
 # Can be used in your theme by calling 'site.title' and so on
 name: Runner
 description: Runner – Speed up your Sketch workflow!
-url: http://sergimiral.github.io/sr-site-test
+url: https://sergimiral.github.io
+baseurl: /sr-site-test
 
 # Used so Jekyll outputs the site correctly so Gulp can do what it wants
 source: src
